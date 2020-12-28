@@ -1,0 +1,24 @@
+{
+  "name": "end_of_semester_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "type": "module",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meriamtarhouni/End_of_semester_Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meriamtarhouni/End_of_semester_Project/issues"
+  },
+  "homepage": "https://github.com/meriamtarhouni/End_of_semester_Project#readme"
+}

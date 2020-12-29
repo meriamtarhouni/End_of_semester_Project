@@ -18,5 +18,5 @@ jobs:
       - name: Run a one-line script
         uses: actions/checkout@v2
         
-      - name: Build
-        run: npm test
+      - run: yarn install
+      - run: yarn test

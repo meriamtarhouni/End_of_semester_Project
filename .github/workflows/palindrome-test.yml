@@ -1,0 +1,22 @@
+name : Test Palindrome
+
+on: 
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: Test Build
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12        
+      
+      - name: Run a one-line script
+        uses: actions/checkout@v2
+        
+      - name: Build
+        run: npm test

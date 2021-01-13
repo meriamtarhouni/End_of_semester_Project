@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  docker-node-mongo:
     image: "docker-node-mongo"
     build: .
     command: "node app.js"
@@ -12,3 +12,13 @@ services:
     image: "mongo"
     ports:
       - "27017:27017"
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    command: --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml

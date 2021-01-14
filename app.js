@@ -111,8 +111,8 @@ const ToDo = require('./models/toDo.js').ToDo;
 const DB_URI = 'mongodb://mongo:27017/toDoApp';
 
 mongoose.connect(DB_URI).then(() => {
-    app.listen(3000);
-    console.log('Listening on port 3000...');
+    app.listen(5000);
+    console.log('Listening on port 5000...');
 });
 
 

@@ -1,11 +1,15 @@
 version: '3'
+
+volumes:
+  grafana_data: {}
+
 services:
   docker-node-mongo:
     image: "docker-node-mongo"
     build: .
     command: "node app.js"
     ports:
-      - "3000:3000"
+      - "5000:5000"
     depends_on:
       - "mongo"
   mongo:
@@ -22,3 +26,16 @@ services:
     command: --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./grafana/config.monitoring
+    restart: always

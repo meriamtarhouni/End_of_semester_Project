@@ -35,6 +35,10 @@ const deletedTasksCounter = new client.Counter({
   name: 'node_request_delete_Tasks_total',
   help: 'The total number of deleted tasks'});
 
+const completedTasksCounter = new client.Counter({
+  name: 'node_request_complete_Tasks_total',
+  help: 'The total number of completed tasks'});
+
 const histogram = new client.Histogram({
     name: 'node_request_duration_seconds',
     help: 'Histogram for the duration in seconds.',
@@ -45,6 +49,7 @@ const histogram = new client.Histogram({
 register.registerMetric(counter);
 register.registerMetric(addedTasksCounter);
 register.registerMetric(deletedTasksCounter);
+register.registerMetric(completedTasksCounter);
 register.registerMetric(histogram);
   
 app.get('/metrics', async (req, res) => {
@@ -95,6 +100,7 @@ app.get('/todo', (req, res) => {
       .then((toDo) => res.status(200).send(toDo))
       .catch((err) => res.status(400).send(err));
     counter.inc();
+    completedTasksCounter.inc();
   });
 
   app.delete('/todo/:id', (req, res) => {

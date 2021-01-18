@@ -2,6 +2,8 @@ version: '3'
 
 volumes:
   grafana_data: {}
+networks:
+  myApp_network:
 
 services:
   docker-node-mongo:
@@ -12,10 +14,23 @@ services:
       - "5000:5000"
     depends_on:
       - "mongo"
+#   deploy:
+#     mode: replicated
+#     replicas: 3
+#     restart_policy:
+#       condition: on-failure
+    networks: 
+      - myApp_network
+
+
   mongo:
     image: "mongo"
     ports:
       - "27017:27017"
+    networks: 
+      - myApp_network
+
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -26,6 +41,8 @@ services:
     command: --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks: 
+      - myApp_network
   
   grafana:
     image: grafana/grafana
@@ -36,6 +53,8 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/:/etc/grafana/provisioning/
+    networks: 
+      - myApp_network
     env_file:
       - ./grafana/config.monitoring
     restart: always
